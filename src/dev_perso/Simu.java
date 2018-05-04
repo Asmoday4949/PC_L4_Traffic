@@ -157,7 +157,7 @@ public class Simu
 	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Hopital"));
 	posX++;
 
-	roadList.add(new Road(RoadType.t_down, posX, posY, size, "March�"));
+	roadList.add(new Road(RoadType.t_down, posX, posY, size, "Marché"));
 	posX++;
 
 	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Bureau"));
@@ -170,7 +170,7 @@ public class Simu
 	roadList.add(new Road(RoadType.t_right, posX, posY, size, "Ecole"));
 	posX++;
 
-	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "H�tel"));
+	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Hôtel"));
 	posX++;
 
 	roadList.add(new Road(RoadType.cross, posX, posY, size, "Fitness"));
@@ -186,7 +186,7 @@ public class Simu
 	roadList.add(new Road(RoadType.turn_right_top, posX, posY, size, "Pharmacie"));
 	posX++;
 
-	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Biblioth�que"));
+	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Bibliothèque"));
 	posX++;
 
 	roadList.add(new Road(RoadType.t_top, posX, posY, size, "Police"));
