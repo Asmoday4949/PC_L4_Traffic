@@ -76,7 +76,6 @@ public class CarMover extends Thread
 		e.printStackTrace();
 	    }
 	    car.setPosition(x, y);
-	    listCar.set(listCar.indexOf(car), car);
 	    movableMap.repaint();
 	}
 

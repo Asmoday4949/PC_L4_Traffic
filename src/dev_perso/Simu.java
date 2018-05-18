@@ -40,35 +40,6 @@ public class Simu
 	// ---------------------------
 	// Exemple d'utilisation feu on/off
 	pan.add(map);
-	JButton button = new JButton("Feu 1 ON");
-	button.addActionListener(new ActionListener()
-	{
-
-	    @Override
-	    public void actionPerformed(ActionEvent arg0)
-	    {
-		Road r6 = roadList.get(5);
-		TraficLight tr = r6.getListTraficLight().get(0);
-		tr.setState(TraficLight.State.ON);
-		r6.repaint();
-	    }
-	});
-	pan.add(button);
-
-	JButton button2 = new JButton("Feu 1 OFF");
-	button2.addActionListener(new ActionListener()
-	{
-
-	    @Override
-	    public void actionPerformed(ActionEvent arg0)
-	    {
-		Road r6 = roadList.get(5);
-		TraficLight tr = r6.getListTraficLight().get(0);
-		tr.setState(TraficLight.State.OFF);
-		r6.repaint();
-	    }
-	});
-	pan.add(button2);
 
 	// Exemple d'utilisation
 	// Moving car CYAN
