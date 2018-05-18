@@ -16,26 +16,13 @@ public class TraficLightManager
      */
     public TraficLightManager(List<Road> roadList)
     {
-	ScheduledExecutorService execute = Executors.newSingleThreadScheduledExecutor();
+	ScheduledExecutorService executor = Executors.newScheduledThreadPool(roadList.size());
 
-	Random r = new Random();
+	
 	for (Road road : roadList)
 	{
-	    List<TraficLight> lights = road.getListTraficLight();
-	    for (TraficLight feu : lights)
-	    {
-		if (r.nextInt() % 2 + 1 == 1)
-		    feu.setState(TraficLight.State.OFF);
-		else
-		    feu.setState(TraficLight.State.ON);
-	    }
+	    executor.scheduleAtFixedRate(road, 3, 3, TimeUnit.SECONDS);
 	}
-
-	for (Road road : roadList)
-	{
-	    execute.scheduleAtFixedRate(new TraficLightSwitcher(road), 0, 3, TimeUnit.SECONDS);
-	}
-
     }
 
 }

@@ -67,6 +67,7 @@ public class CarMover extends Thread
 	{
 	    x += deltaX / step;
 	    y += deltaY / step;
+	    
 	    try
 	    {
 		sleep(sleep);
@@ -75,11 +76,10 @@ public class CarMover extends Thread
 	    {
 		e.printStackTrace();
 	    }
+	    
 	    car.setPosition(x, y);
-	    listCar.set(listCar.indexOf(car), car);
 	    movableMap.repaint();
 	}
-
     }
 
     private MovableMap movableMap;

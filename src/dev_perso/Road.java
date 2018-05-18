@@ -6,10 +6,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.swing.JPanel;
 
-public class Road extends JPanel
+import dev_perso.TraficLight.State;
+
+public class Road extends JPanel implements Runnable 
 {
 
     private static final long serialVersionUID = 1L;
@@ -40,41 +43,51 @@ public class Road extends JPanel
 	posY = _posY;
 	dim = _dim;
 	nom = _nom;
+	
+	this.connectedRoad = new ArrayList<Road>();
 
 	setPreferredSize(new Dimension(dim, dim));
 
-	listTraficLight = new ArrayList<TraficLight>();
+	List<TraficLight> listTraficLight = new ArrayList<TraficLight>();
 
 	if (type == RoadType.t_left)
 	{
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP, State.ON));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN, State.OFF));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT, State.OFF));
 	}
 	else if (type == RoadType.t_top)
 	{
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP, State.ON));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT, State.OFF));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT, State.OFF));
 	}
 	else if (type == RoadType.t_right)
 	{
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP, State.ON));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT, State.OFF));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN, State.OFF));
 	}
 	else if (type == RoadType.t_down)
 	{
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT, State.ON));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN, State.OFF));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT, State.OFF));
 	}
 	else if (type == RoadType.cross)
 	{
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN));
-	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.UP, State.ON));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.RIGHT, State.OFF));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN, State.OFF));
+	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT, State.OFF));
+	}
+	
+	this.circularBuffer = new CircularBuffer(listTraficLight);
+	this.listQueuesTrafficLight = new ArrayList<ConcurrentLinkedQueue<CarMover>>(listTraficLight.size());
+	
+	for(int i = 0; i < listTraficLight.size(); i++)
+	{
+	    this.listQueuesTrafficLight.add(new ConcurrentLinkedQueue<CarMover>());
 	}
     }
 
@@ -139,14 +152,16 @@ public class Road extends JPanel
 
 	}
 
-	for (TraficLight light : listTraficLight)
-	{
-	    light.traficLightDraw(g);
-	}
+	circularBuffer.draw(g);
 
 	g.setColor(Color.BLACK);
 	g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 	g.drawString(nom, dim / 2 + 5, dim / 2 + 10);
+    }
+    
+    public void connect(Road road)
+    {
+	this.connectedRoad.add(road);
     }
 
     public int getPosCentX()
@@ -175,18 +190,26 @@ public class Road extends JPanel
     	return type;
     }
 
-    public List<TraficLight> getListTraficLight()
-    {
-	return listTraficLight;
-    }
-
     public boolean hasTraficLight()
     {
-	return listTraficLight.size() > 0;
+	return circularBuffer.size() > 0;
     }
-
-    private List<TraficLight> listTraficLight;
-
+    
+    public void go(Road from)
+    {
+	
+    }
+    
+    @Override
+    public void run()
+    {
+	circularBuffer.setNextGreen();
+	this.repaint();
+    }
+    
+    private CircularBuffer circularBuffer;
+    private List<ConcurrentLinkedQueue<CarMover>> listQueuesTrafficLight;
+    private List<Road> connectedRoad;
     private RoadType type;
     private int posX;
     private int posY;

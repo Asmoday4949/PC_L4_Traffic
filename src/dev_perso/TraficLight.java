@@ -9,7 +9,7 @@ public class TraficLight
 
     public enum State
     {
-	OFF, ON, NONE
+	OFF, ON
     };
 
     public enum Position
@@ -25,11 +25,11 @@ public class TraficLight
      * @param _position
      *            the position of the TraficLight on the Road
      */
-    public TraficLight(int _dim, Position _position)
+    public TraficLight(int _dim, Position _position, State state)
     {
 	dim = _dim;
 	position = _position;
-	state = State.NONE;
+	this.state = state;
     }
 
     /**
