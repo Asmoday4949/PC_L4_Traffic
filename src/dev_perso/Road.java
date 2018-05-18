@@ -169,6 +169,11 @@ public class Road extends JPanel
 	type = _type;
 	repaint();
     }
+    
+    public RoadType getType()
+    {
+    	return type;
+    }
 
     public List<TraficLight> getListTraficLight()
     {
