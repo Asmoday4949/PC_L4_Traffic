@@ -43,6 +43,8 @@ public class Road extends JPanel implements Runnable
 	posY = _posY;
 	dim = _dim;
 	nom = _nom;
+	
+	this.connectedRoad = new ArrayList<Road>();
 
 	setPreferredSize(new Dimension(dim, dim));
 
@@ -156,6 +158,11 @@ public class Road extends JPanel implements Runnable
 	g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 	g.drawString(nom, dim / 2 + 5, dim / 2 + 10);
     }
+    
+    public void connect(Road road)
+    {
+	this.connectedRoad.add(road);
+    }
 
     public int getPosCentX()
     {
@@ -178,10 +185,14 @@ public class Road extends JPanel implements Runnable
 	repaint();
     }
 
-
     public boolean hasTraficLight()
     {
 	return circularBuffer.size() > 0;
+    }
+    
+    public void go(Road from)
+    {
+	
     }
     
     @Override
@@ -189,11 +200,11 @@ public class Road extends JPanel implements Runnable
     {
 	circularBuffer.setNextGreen();
 	this.repaint();
-	
     }
     
     private CircularBuffer circularBuffer;
     private List<ConcurrentLinkedQueue<CarMover>> listQueuesTrafficLight;
+    private List<Road> connectedRoad;
     private RoadType type;
     private int posX;
     private int posY;

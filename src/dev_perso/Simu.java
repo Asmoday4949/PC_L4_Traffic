@@ -122,51 +122,116 @@ public class Simu
 
 	int posX = 0;
 	int posY = 0;
-	roadList.add(new Road(RoadType.turn_right_down, posX, posY, size, "Gare"));
+	
+	Road gare = new Road(RoadType.turn_right_down, posX, posY, size, "Gare");
+	roadList.add(gare);
+	posX++;
+	
+	Road hopital = new Road(RoadType.line_hori, posX, posY, size, "Hopital");
+	roadList.add(hopital);
 	posX++;
 
-	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Hopital"));
+	Road marche = new Road(RoadType.t_down, posX, posY, size, "Marché");
+	roadList.add(marche);
+	posX++;
+	
+	Road bureau = new Road(RoadType.line_hori, posX, posY, size, "Bureau");
+	roadList.add(bureau);
 	posX++;
 
-	roadList.add(new Road(RoadType.t_down, posX, posY, size, "Marché"));
-	posX++;
-
-	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Bureau"));
-	posX++;
-
-	roadList.add(new Road(RoadType.turn_left_down, posX, posY, size, "Banque"));
+	Road banque = new Road(RoadType.turn_left_down, posX, posY, size, "Banque");
+	roadList.add(banque);
 	posX = 0;
 	posY++;
 
-	roadList.add(new Road(RoadType.t_right, posX, posY, size, "Ecole"));
+	Road ecole = new Road(RoadType.t_right, posX, posY, size, "Ecole");
+	roadList.add(ecole);
+	posX++;
+	
+	Road hotel = new Road(RoadType.line_hori, posX, posY, size, "Hôtel");
+	roadList.add(hotel);
 	posX++;
 
-	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Hôtel"));
+	Road fitness = new Road(RoadType.cross, posX, posY, size, "Fitness");
+	roadList.add(fitness);
 	posX++;
 
-	roadList.add(new Road(RoadType.cross, posX, posY, size, "Fitness"));
+	Road magasin = new Road(RoadType.turn_left_down, posX, posY, size, "Magasin");
+	roadList.add(magasin);
 	posX++;
 
-	roadList.add(new Road(RoadType.turn_left_down, posX, posY, size, "Magasin"));
-	posX++;
-
-	roadList.add(new Road(RoadType.line_vert, posX, posY, size, "Kiosque"));
+	Road kiosque = new Road(RoadType.line_vert, posX, posY, size, "Kiosque");
+	roadList.add(kiosque);
 	posX = 0;
 	posY++;
 
-	roadList.add(new Road(RoadType.turn_right_top, posX, posY, size, "Pharmacie"));
+	Road pharmacie = new Road(RoadType.turn_right_top, posX, posY, size, "Pharmacie");
+	roadList.add(pharmacie);
 	posX++;
 
-	roadList.add(new Road(RoadType.line_hori, posX, posY, size, "Bibliothèque"));
+	Road bibliotheque = new Road(RoadType.line_hori, posX, posY, size, "Bibliothèque");
+	roadList.add(bibliotheque);
 	posX++;
 
-	roadList.add(new Road(RoadType.t_top, posX, posY, size, "Police"));
+	Road police = new Road(RoadType.t_top, posX, posY, size, "Police");
+	roadList.add(police);
 	posX++;
 
-	roadList.add(new Road(RoadType.t_top, posX, posY, size, "Quincaillerie"));
+	Road quincaillerie = new Road(RoadType.t_top, posX, posY, size, "Quincaillerie");
+	roadList.add(quincaillerie);
 	posX++;
 
-	roadList.add(new Road(RoadType.turn_left_top, posX, posY, size, "Fleuriste"));
+	Road fleuriste = new Road(RoadType.turn_left_top, posX, posY, size, "Fleuriste");
+	roadList.add(fleuriste);
+	
+	gare.connect(hopital);
+	gare.connect(ecole);
+	
+	hopital.connect(marche);
+	hopital.connect(gare);
+	
+	marche.connect(bureau);
+	marche.connect(fitness);
+	marche.connect(hopital);
+	
+	bureau.connect(banque);
+	bureau.connect(marche);
+	
+	banque.connect(kiosque);
+	banque.connect(bureau);
+	
+	ecole.connect(hotel);
+	ecole.connect(pharmacie);
+	
+	hotel.connect(fitness);
+	hotel.connect(ecole);
+	
+	fitness.connect(marche);
+	fitness.connect(magasin);
+	fitness.connect(police);
+	fitness.connect(hotel);
+	
+	magasin.connect(quincaillerie);
+	magasin.connect(fitness);
+	
+	kiosque.connect(banque);
+	kiosque.connect(fleuriste);
+	
+	pharmacie.connect(ecole);
+	pharmacie.connect(bibliotheque);
+	
+	bibliotheque.connect(police);
+	bibliotheque.connect(pharmacie);
+	
+	police.connect(fitness);
+	police.connect(quincaillerie);
+	police.connect(bibliotheque);
+	
+	quincaillerie.connect(magasin);
+	quincaillerie.connect(fleuriste);
+	
+	fleuriste.connect(kiosque);
+	fleuriste.connect(quincaillerie);
 
 	return roadList;
     }
