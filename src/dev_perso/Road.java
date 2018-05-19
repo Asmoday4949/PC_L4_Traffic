@@ -262,7 +262,7 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	@Override
 	public Iterator<Road> iterator()
 	{
-		return connectedRoad.iterator();
+		return listConnectedRoad.iterator();
 	}
     
     private CircularBuffer circularBuffer;
