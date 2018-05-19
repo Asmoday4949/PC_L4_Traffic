@@ -47,10 +47,10 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	posY = _posY;
 	dim = _dim;
 	nom = _nom;
-	
+
 	this.lock = new ReentrantLock();
 	this.isGreen = this.lock.newCondition();
-	
+
 	this.listConnectedRoad = new ArrayList<Road>();
 
 	setPreferredSize(new Dimension(dim, dim));
@@ -88,11 +88,11 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.DOWN, State.OFF));
 	    listTraficLight.add(new TraficLight(dim, TraficLight.Position.LEFT, State.OFF));
 	}
-	
+
 	this.circularBuffer = new CircularBuffer(listTraficLight);
 	this.listQueuesTrafficLight = new ArrayList<ConcurrentLinkedQueue<CarMover>>(listTraficLight.size());
-	
-	for(int i = 0; i < listTraficLight.size(); i++)
+
+	for (int i = 0; i < listTraficLight.size(); i++)
 	{
 	    this.listQueuesTrafficLight.add(new ConcurrentLinkedQueue<CarMover>());
 	}
@@ -165,7 +165,7 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 	g.drawString(nom, dim / 2 + 5, dim / 2 + 10);
     }
-    
+
     public void connect(Road road)
     {
 	this.listConnectedRoad.add(road);
@@ -191,52 +191,54 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	type = _type;
 	repaint();
     }
-    
+
     public RoadType getType()
     {
-    	return type;
+	return type;
     }
 
     public boolean hasTraficLight()
     {
 	return circularBuffer.size() > 0;
     }
-    
+
     public void go(Road from, CarMover mover)
     {
 	int indexRoad = this.listConnectedRoad.indexOf(from);
 
-	if(indexRoad == -1)
+	if (indexRoad == -1)
 	{
 	    return;
 	}
-	
-	if(this.listConnectedRoad.size() > 2)
+
+	if (this.listConnectedRoad.size() > 2)
 	{
 	    this.lock.lock();
-	    
-	    ConcurrentLinkedQueue<CarMover> queue = this.listQueuesTrafficLight.get(indexRoad); 
-	    
+
+	    ConcurrentLinkedQueue<CarMover> queue = this.listQueuesTrafficLight.get(indexRoad);
+
 	    queue.add(mover);
-	    
-	    System.out.println("isRed " + (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()));
+
+	    System.out.println(
+		    "isRed " + (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()));
 	    System.out.println("isNotFirst " + (queue.element() != mover));
-	    
-	    while (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent() || queue.element() != mover)
+
+	    while (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()
+		    || queue.element() != mover)
 	    {
-		try
-		{
-		    this.isGreen.await();
-		    System.out.println("woke up");
-		}
-		catch (InterruptedException e)
-		{
-		    e.printStackTrace();
-		}
+//		try
+//		{
+//		    //this.isGreen.await();
+//		    System.out.println("woke up");
+//		}
+//		catch (InterruptedException e)
+//		{
+//		    e.printStackTrace();
+//		}
 	    }
-	    
+
 	    this.listQueuesTrafficLight.get(indexRoad).remove(mover);
-	    
+
 	    try
 	    {
 		Thread.sleep(500);
@@ -245,26 +247,25 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	    {
 		e.printStackTrace();
 	    }
-	    
-	    lock.unlock();	    
+
+	    lock.unlock();
 	}
     }
-    
 
     @Override
     public void run()
     {
 	circularBuffer.setNextGreen();
-	this.isGreen.signal();
+	//this.isGreen.signal();
 	this.repaint();
     }
-    
-	@Override
-	public Iterator<Road> iterator()
-	{
-		return connectedRoad.iterator();
-	}
-    
+
+    @Override
+    public Iterator<Road> iterator()
+    {
+	return listConnectedRoad.iterator();
+    }
+
     private CircularBuffer circularBuffer;
     private List<ConcurrentLinkedQueue<CarMover>> listQueuesTrafficLight;
     private List<Road> listConnectedRoad;
