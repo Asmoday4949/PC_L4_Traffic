@@ -44,57 +44,9 @@ public class Simu
 	// Exemple d'utilisation
 	// Moving car CYAN
 	Car car1 = new Car(Color.CYAN);
-	List<Road> listCirc1 = getCirc1(roadList);
+	List<Road> listCirc1 = PathRoadGenerator.generate(50, roadList);
 	PathRoad circ1 = new PathRoad(listCirc1);
 	movableMap.runCar(circ1, car1);
-
-	// Exemple d'utilisation
-	// Static car BLUE
-	Car car2 = new Car(Color.BLUE);
-	movableMap.addCar(car2);
-	Road r3 = roadList.get(2);
-	movableMap.setCarPos(car2, r3.getPosCentX(), r3.getPosCentY());
-
-	// Exemple d'utilisation
-	// Moving car YELLOW
-	Car car3 = new Car(Color.YELLOW);
-	List<Road> listCirc2 = new ArrayList<Road>();
-	listCirc2.add(roadList.get(14));
-	listCirc2.add(roadList.get(13));
-	listCirc2.add(roadList.get(12));
-	PathRoad circ2 = new PathRoad(listCirc2);
-	movableMap.runCar(circ2, car3);
-
-	// Exemple d'utilisation
-	// Moving car ORANGE
-	JButton button3 = new JButton("Run Car");
-	button3.addActionListener(new ActionListener()
-	{
-
-	    @Override
-	    public void actionPerformed(ActionEvent arg0)
-	    {
-		Car car4 = new Car(Color.ORANGE);
-		List<Road> listCirc3 = new ArrayList<Road>();
-		listCirc3.add(roadList.get(0));
-		listCirc3.add(roadList.get(1));
-		listCirc3.add(roadList.get(2));
-		listCirc3.add(roadList.get(3));
-		listCirc3.add(roadList.get(4));
-		listCirc3.add(roadList.get(9));
-		listCirc3.add(roadList.get(14));
-		listCirc3.add(roadList.get(13));
-		listCirc3.add(roadList.get(12));
-		listCirc3.add(roadList.get(11));
-		listCirc3.add(roadList.get(10));
-		listCirc3.add(roadList.get(5));
-		listCirc3.add(roadList.get(0));
-		PathRoad circ3 = new PathRoad(listCirc3);
-		movableMap.runCar(circ3, car4);
-	    }
-	});
-	pan.add(button3);
-	// ---------------------------
 
 	pan.setBounds(0, 0, pan.getPreferredSize().width, pan.getPreferredSize().height);
 	pan.setOpaque(false);
@@ -237,25 +189,4 @@ public class Simu
 
 	return roadList;
     }
-
-    /**
-     * Exemple of a generate path
-     * 
-     * @param roadList
-     * @return
-     */
-    private static List<Road> getCirc1(List<Road> roadList)
-    {
-	List<Road> listCirc1 = new ArrayList<Road>();
-	listCirc1.add(roadList.get(0));
-	listCirc1.add(roadList.get(1));
-	listCirc1.add(roadList.get(2));
-	listCirc1.add(roadList.get(7));
-	listCirc1.add(roadList.get(12));
-	listCirc1.add(roadList.get(13));
-	listCirc1.add(roadList.get(14));
-
-	return listCirc1;
-    }
-
 }
