@@ -52,6 +52,11 @@ public class CircularBuffer
 	return this.current;
     }
     
+    public synchronized TraficLight getTraficLight(int index)
+    {
+	return this.listTraficLights.get(index);
+    }
+    
     public int size()
     {
 	return this.listTraficLights.size();

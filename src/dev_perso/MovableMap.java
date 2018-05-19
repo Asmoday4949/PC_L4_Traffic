@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -27,6 +29,27 @@ public class MovableMap extends JPanel
 	listCar = new ArrayList<Car>();
 
 	executor = Executors.newFixedThreadPool(10);
+
+	this.createTimer();
+    }
+
+    private void createTimer()
+    {
+	this.drawingTimer = new Timer();
+
+	TimerTask task = new TimerTask()
+	{
+
+	    @Override
+	    public void run()
+	    {
+		repaint();
+	    }
+
+	};
+	
+	this.drawingTimer.scheduleAtFixedRate(task, 0, DRAWING_DELTA);
+
     }
 
     /**
@@ -42,7 +65,7 @@ public class MovableMap extends JPanel
 	Road init = circ.getListCirc().get(0);
 	car.setPosition(init.getPosCentX(), init.getPosCentY());
 	listCar.add(car);
-	executor.execute(new CarMover(this, circ, car, listCar, 20, 100));
+	executor.execute(new CarMover(this, circ, car, listCar, 20));
     }
 
     /**
@@ -95,4 +118,6 @@ public class MovableMap extends JPanel
 
     private List<Car> listCar;
     private Executor executor;
+    private static final int DRAWING_DELTA = 1000 / 60;
+    private Timer drawingTimer;
 }

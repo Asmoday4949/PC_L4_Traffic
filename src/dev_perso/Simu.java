@@ -202,6 +202,7 @@ public class Simu
 	
 	ecole.connect(hotel);
 	ecole.connect(pharmacie);
+	ecole.connect(gare);
 	
 	hotel.connect(fitness);
 	hotel.connect(ecole);
@@ -229,6 +230,7 @@ public class Simu
 	
 	quincaillerie.connect(magasin);
 	quincaillerie.connect(fleuriste);
+	quincaillerie.connect(police);
 	
 	fleuriste.connect(kiosque);
 	fleuriste.connect(quincaillerie);

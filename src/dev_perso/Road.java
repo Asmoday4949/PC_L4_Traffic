@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JPanel;
 
@@ -44,7 +47,10 @@ public class Road extends JPanel implements Runnable
 	dim = _dim;
 	nom = _nom;
 	
-	this.connectedRoad = new ArrayList<Road>();
+	this.lock = new ReentrantLock();
+	this.isGreen = this.lock.newCondition();
+	
+	this.listConnectedRoad = new ArrayList<Road>();
 
 	setPreferredSize(new Dimension(dim, dim));
 
@@ -161,7 +167,7 @@ public class Road extends JPanel implements Runnable
     
     public void connect(Road road)
     {
-	this.connectedRoad.add(road);
+	this.listConnectedRoad.add(road);
     }
 
     public int getPosCentX()
@@ -190,24 +196,71 @@ public class Road extends JPanel implements Runnable
 	return circularBuffer.size() > 0;
     }
     
-    public void go(Road from)
+    public void go(Road from, CarMover mover)
     {
+	int indexRoad = this.listConnectedRoad.indexOf(from);
+
+	if(indexRoad == -1)
+	{
+	    return;
+	}
 	
+	if(this.listConnectedRoad.size() > 2)
+	{
+	    this.lock.lock();
+	    
+	    ConcurrentLinkedQueue<CarMover> queue = this.listQueuesTrafficLight.get(indexRoad); 
+	    
+	    queue.add(mover);
+	    
+	    System.out.println("isRed " + (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()));
+	    System.out.println("isNotFirst " + (queue.element() != mover));
+	    
+	    while (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent() || queue.element() != mover)
+	    {
+		try
+		{
+		    this.isGreen.await();
+		    System.out.println("woke up");
+		}
+		catch (InterruptedException e)
+		{
+		    e.printStackTrace();
+		}
+	    }
+	    
+	    this.listQueuesTrafficLight.get(indexRoad).remove(mover);
+	    
+	    try
+	    {
+		Thread.sleep(500);
+	    }
+	    catch (InterruptedException e)
+	    {
+		e.printStackTrace();
+	    }
+	    
+	    lock.unlock();	    
+	}
     }
     
+
     @Override
     public void run()
     {
 	circularBuffer.setNextGreen();
+	this.isGreen.signal();
 	this.repaint();
     }
     
     private CircularBuffer circularBuffer;
     private List<ConcurrentLinkedQueue<CarMover>> listQueuesTrafficLight;
-    private List<Road> connectedRoad;
+    private List<Road> listConnectedRoad;
     private RoadType type;
     private int posX;
     private int posY;
     private int dim;
     private String nom;
+    private Condition isGreen;
+    private Lock lock;
 }

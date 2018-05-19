@@ -24,14 +24,13 @@ public class CarMover extends Thread
      * @param _sleep
      *            part of the speed of the car (time)
      */
-    public CarMover(MovableMap _movableMap, PathRoad _circ, Car _car, List<Car> _listCar, int _step, int _sleep)
+    public CarMover(MovableMap _movableMap, PathRoad _circ, Car _car, List<Car> _listCar, int _step)
     {
 	movableMap = _movableMap;
 	circ = _circ;
 	car = _car;
 	listCar = _listCar;
 	step = _step;
-	sleep = _sleep;
     }
 
     /**
@@ -42,6 +41,8 @@ public class CarMover extends Thread
 	List<Road> roadsList = circ.getListCirc();
 	for (int i = 1; i <= circ.getListCirc().size() - 1; i++)
 	{
+	    roadsList.get(i).go(roadsList.get(i - 1), this);
+	    
 	    runRoad(roadsList.get(i - 1), roadsList.get(i));
 	}
 	listCar.remove(car);
@@ -70,7 +71,7 @@ public class CarMover extends Thread
 	    
 	    try
 	    {
-		sleep(sleep);
+		sleep(SLEEP);
 	    }
 	    catch (InterruptedException e)
 	    {
@@ -78,7 +79,6 @@ public class CarMover extends Thread
 	    }
 	    
 	    car.setPosition(x, y);
-	    movableMap.repaint();
 	}
     }
 
@@ -86,7 +86,6 @@ public class CarMover extends Thread
     private PathRoad circ;
     private Car car;
     private List<Car> listCar;
-
     private int step;
-    private int sleep;
+    private static final int SLEEP = 100;
 }
