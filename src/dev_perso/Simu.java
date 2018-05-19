@@ -44,7 +44,7 @@ public class Simu
 	// Exemple d'utilisation
 	// Moving car CYAN
 	Car car1 = new Car(Color.CYAN);
-	List<Road> listCirc1 = getCirc2(roadList);
+	List<Road> listCirc1 = PathRoadGenerator.generate(50, roadList);
 	PathRoad circ1 = new PathRoad(listCirc1);
 	movableMap.runCar(circ1, car1);
 
@@ -186,90 +186,5 @@ public class Simu
 	fleuriste.connect(quincaillerie);
 
 	return roadList;
-    }
-
-    /**
-     * Exemple of a generate path
-     * 
-     * @param roadList
-     * @return
-     */
-    private static List<Road> getCirc1(List<Road> roadList)
-    {
-	List<Road> listCirc = new ArrayList<Road>();
-	listCirc.add(roadList.get(0));
-	listCirc.add(roadList.get(1));
-	listCirc.add(roadList.get(2));
-	listCirc.add(roadList.get(7));
-	listCirc.add(roadList.get(12));
-	listCirc.add(roadList.get(13));
-	listCirc.add(roadList.get(14));
-
-	return listCirc;
-    }
-
-    private static List<Road> getCirc2(List<Road> roadList)
-    {
-	List<Road> listCirc = new ArrayList<Road>();
-	listCirc.add(roadList.get(4));
-	listCirc.add(roadList.get(9));
-	listCirc.add(roadList.get(14));
-	listCirc.add(roadList.get(13));
-	listCirc.add(roadList.get(8));
-	listCirc.add(roadList.get(7));
-	listCirc.add(roadList.get(12));
-	listCirc.add(roadList.get(13));
-	listCirc.add(roadList.get(8));
-	listCirc.add(roadList.get(7));
-	listCirc.add(roadList.get(6));
-	
-	return listCirc;
-    }
-    
-    private static List<Road> getCirc3(List<Road> roadList)
-    {
-	List<Road> listCirc = new ArrayList<Road>();
-	listCirc.add(roadList.get(12));
-	listCirc.add(roadList.get(7));
-	listCirc.add(roadList.get(2));
-	listCirc.add(roadList.get(1));
-	listCirc.add(roadList.get(0));
-	listCirc.add(roadList.get(5));
-	listCirc.add(roadList.get(6));
-	listCirc.add(roadList.get(7));
-
-	return listCirc;
-    }
-    
-    private static List<Road> getCirc4(List<Road> roadList)
-    {
-	List<Road> listCirc = new ArrayList<Road>();
-	listCirc.add(roadList.get(8));
-	listCirc.add(roadList.get(13));
-	listCirc.add(roadList.get(12));
-	listCirc.add(roadList.get(11));
-	listCirc.add(roadList.get(10));
-	listCirc.add(roadList.get(5));
-	listCirc.add(roadList.get(0));
-	listCirc.add(roadList.get(1));
-	listCirc.add(roadList.get(2));
-
-	return listCirc;
-    }
-    
-    private static List<Road> getCirc5(List<Road> roadList)
-    {
-	List<Road> listCirc = new ArrayList<Road>();
-	listCirc.add(roadList.get(2));
-	listCirc.add(roadList.get(3));
-	listCirc.add(roadList.get(4));
-	listCirc.add(roadList.get(9));
-	listCirc.add(roadList.get(14));
-	listCirc.add(roadList.get(13));
-	listCirc.add(roadList.get(12));
-	listCirc.add(roadList.get(7));
-	listCirc.add(roadList.get(2));
-
-	return listCirc;
     }
 }
