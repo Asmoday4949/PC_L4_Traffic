@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -12,7 +13,7 @@ import javax.swing.JPanel;
 
 import dev_perso.TraficLight.State;
 
-public class Road extends JPanel implements Runnable 
+public class Road extends JPanel implements Runnable, Iterable<Road>
 {
 
     private static final long serialVersionUID = 1L;
@@ -206,6 +207,12 @@ public class Road extends JPanel implements Runnable
 	circularBuffer.setNextGreen();
 	this.repaint();
     }
+    
+	@Override
+	public Iterator<Road> iterator()
+	{
+		return connectedRoad.iterator();
+	}
     
     private CircularBuffer circularBuffer;
     private List<ConcurrentLinkedQueue<CarMover>> listQueuesTrafficLight;
