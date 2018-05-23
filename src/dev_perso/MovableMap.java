@@ -28,7 +28,7 @@ public class MovableMap extends JPanel
 	this.setPreferredSize(map.getPreferredSize());
 	listCar = new ArrayList<Car>();
 
-	executor = Executors.newFixedThreadPool(10);
+	executor = Executors.newFixedThreadPool(20);
 
 	this.createTimer();
     }
