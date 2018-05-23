@@ -1,5 +1,6 @@
 package dev_perso;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,15 +49,37 @@ public class PathRoadGenerator
     
     /**
      * Generate a random number for the number of waypoints
-     * @param max	Max value to generate (not include)
-     * @return		Random value between 0 and max
+     * @param max	Max value to generate
+     * @return		Random value between 5 and max
      */
     public static int generateNumberOfWayPoints(int max)
     {
+	final int min = 5;
+	return generateNumberOfWayPoints(min, max);
+    }
+    
+    /**
+     * Generate a random number for the number of waypoints
+     * @param min	Min value to generate
+     * @param max	Max value to generate
+     * @return		Random value between min and max
+     */
+    public static int generateNumberOfWayPoints(int min, int max)
+    {
 	Random rand = new Random();
-	return rand.nextInt(max);
+	return rand.nextInt(max-min)+min;
     }
 
+    public static Color generateRandomColor()
+    {
+	Random rand = new Random();
+	float r = rand.nextFloat();
+	float g = rand.nextFloat();
+	float b = rand.nextFloat();
+	
+	return new Color(r,g,b);
+    }
+    
     public static List<Road> getCirc1(List<Road> roadList)
     {
 	List<Road> listCirc = new ArrayList<Road>();

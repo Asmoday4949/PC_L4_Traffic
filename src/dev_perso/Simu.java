@@ -50,11 +50,12 @@ public class Simu
 	    @Override
 	    public void actionPerformed(ActionEvent arg0)
 	    {
-		Car car4 = new Car(Color.ORANGE);
+		Color color = PathRoadGenerator.generateRandomColor();
+		Car car = new Car(color);
 		int waypointsNb = PathRoadGenerator.generateNumberOfWayPoints(maxWayPoint);
 		List<Road> path = PathRoadGenerator.generatePath(waypointsNb, roadList);
 		PathRoad circ3 = new PathRoad(path);
-		movableMap.runCar(circ3, car4);
+		movableMap.runCar(circ3, car);
 	    }
 	});
 	pan.add(btnAddCar);
