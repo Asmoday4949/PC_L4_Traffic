@@ -226,15 +226,15 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	    while (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()
 		    || queue.element() != mover)
 	    {
-//		try
-//		{
-//		    //this.isGreen.await();
-//		    System.out.println("woke up");
-//		}
-//		catch (InterruptedException e)
-//		{
-//		    e.printStackTrace();
-//		}
+		try
+		{
+		    this.isGreen.await();
+		    System.out.println("woke up");
+		}
+		catch (InterruptedException e)
+		{
+		    e.printStackTrace();
+		}
 	    }
 
 	    this.listQueuesTrafficLight.get(indexRoad).remove(mover);
@@ -247,7 +247,16 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
     public void run()
     {
 	circularBuffer.setNextGreen();
-	//this.isGreen.signal();
+
+	lock.lock();
+	try
+	{
+	    this.isGreen.signal();
+	}
+	finally
+	{
+	    lock.unlock();
+	}
 	this.repaint();
     }
 
@@ -256,12 +265,12 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
     {
 	return listConnectedRoad.iterator();
     }
-    
+
     public Road getConnectedRoad(int index)
     {
 	return listConnectedRoad.get(index);
     }
-    
+
     public int getNumberOfConnectedRoads()
     {
 	return this.listConnectedRoad.size();
