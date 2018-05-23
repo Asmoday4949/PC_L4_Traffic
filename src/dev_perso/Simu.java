@@ -17,6 +17,7 @@ public class Simu
 {
 
     private static int size = 200;
+    private static int maxWayPoint = 30;
 
     public static void main(String[] args)
     {
@@ -41,13 +42,24 @@ public class Simu
 	// Exemple d'utilisation feu on/off
 	pan.add(map);
 
-	// Exemple d'utilisation
-	// Moving car CYAN
-	Car car1 = new Car(Color.CYAN);
-	List<Road> listCirc1 = PathRoadGenerator.generatePath(50, roadList);
-	PathRoad circ1 = new PathRoad(listCirc1);
-	movableMap.runCar(circ1, car1);
+	// Button for adding a new car in the scene
+	JButton btnAddCar = new JButton("Add car");
+	btnAddCar.addActionListener(new ActionListener()
+	{
 
+	    @Override
+	    public void actionPerformed(ActionEvent arg0)
+	    {
+		Car car4 = new Car(Color.ORANGE);
+		int waypointsNb = PathRoadGenerator.generateNumberOfWayPoints(maxWayPoint);
+		List<Road> path = PathRoadGenerator.generatePath(waypointsNb, roadList);
+		PathRoad circ3 = new PathRoad(path);
+		movableMap.runCar(circ3, car4);
+	    }
+	});
+	pan.add(btnAddCar);
+	// ---------------------------
+	
 	pan.setBounds(0, 0, pan.getPreferredSize().width, pan.getPreferredSize().height);
 	pan.setOpaque(false);
 	layeredPane.add(pan, 0, Integer.valueOf(0));
@@ -62,7 +74,7 @@ public class Simu
 	myGui.pack();
 	myGui.setVisible(true);
     }
-
+    
     /**
      * Generate the grid
      * 

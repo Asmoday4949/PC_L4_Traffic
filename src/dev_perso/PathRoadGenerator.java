@@ -9,7 +9,13 @@ import dev_perso.Road.RoadType;
 
 public class PathRoadGenerator
 {
-    public static List<Road> generatePath(int pathsCounter, List<Road> roadsList)
+    /**
+     * Generate a random path
+     * @param waypointsNb	Number of waypoints
+     * @param roadsList		List of roads in the scene
+     * @return			List of roads which define the path to follow
+     */
+    public static List<Road> generatePath(int waypointsNb, List<Road> roadsList)
     {
 	List<Road> pathToFollow = new ArrayList<Road>();
 	Random rand = new Random();
@@ -19,8 +25,7 @@ public class PathRoadGenerator
 	int lastRoadIndex = rand.nextInt(currentRoad.getNumberOfConnectedRoads());
 	Road lastRoad = roadsList.get(lastRoadIndex);
 	
-	// Créer autant de chemins que demandé
-	for (int count = 0; count < pathsCounter; count++)
+	for (int count = 0; count < waypointsNb; count++)
 	{
 	    Road nextRoad = null;
 	    int nextRoadIndex = -1;
@@ -40,8 +45,19 @@ public class PathRoadGenerator
 
 	return pathToFollow;
     }
+    
+    /**
+     * Generate a random number for the number of waypoints
+     * @param max	Max value to generate (not include)
+     * @return		Random value between 0 and max
+     */
+    public static int generateNumberOfWayPoints(int max)
+    {
+	Random rand = new Random();
+	return rand.nextInt(max);
+    }
 
-    private static List<Road> getCirc1(List<Road> roadList)
+    public static List<Road> getCirc1(List<Road> roadList)
     {
 	List<Road> listCirc = new ArrayList<Road>();
 	listCirc.add(roadList.get(0));
@@ -55,7 +71,7 @@ public class PathRoadGenerator
 	return listCirc;
     }
 
-    private static List<Road> getCirc2(List<Road> roadList)
+    public static List<Road> getCirc2(List<Road> roadList)
     {
 	List<Road> listCirc = new ArrayList<Road>();
 	listCirc.add(roadList.get(4));
@@ -73,7 +89,7 @@ public class PathRoadGenerator
 	return listCirc;
     }
 
-    private static List<Road> getCirc3(List<Road> roadList)
+    public static List<Road> getCirc3(List<Road> roadList)
     {
 	List<Road> listCirc = new ArrayList<Road>();
 	listCirc.add(roadList.get(12));
@@ -88,7 +104,7 @@ public class PathRoadGenerator
 	return listCirc;
     }
 
-    private static List<Road> getCirc4(List<Road> roadList)
+    public static List<Road> getCirc4(List<Road> roadList)
     {
 	List<Road> listCirc = new ArrayList<Road>();
 	listCirc.add(roadList.get(8));
@@ -104,7 +120,7 @@ public class PathRoadGenerator
 	return listCirc;
     }
 
-    private static List<Road> getCirc5(List<Road> roadList)
+    public static List<Road> getCirc5(List<Road> roadList)
     {
 	List<Road> listCirc = new ArrayList<Road>();
 	listCirc.add(roadList.get(2));
