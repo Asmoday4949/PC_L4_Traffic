@@ -37,12 +37,12 @@ public class Simu
 
 	// Create the map where the Car move
 	MovableMap movableMap = new MovableMap(map);
-
-	// ---------------------------
-	// Exemple d'utilisation feu on/off
+	
+	// Add the map to the main panel
 	pan.add(map);
 
 	// Button for adding a new car in the scene
+	// with random color and a random path (minimum of 5 waypoints)
 	JButton btnAddCar = new JButton("Add car");
 	btnAddCar.addActionListener(new ActionListener()
 	{
@@ -149,6 +149,7 @@ public class Simu
 	Road fleuriste = new Road(RoadType.turn_left_top, posX, posY, size, "Fleuriste");
 	roadList.add(fleuriste);
 	
+	// Connect each road with its neighbors
 	gare.connect(hopital);
 	gare.connect(ecole);
 	
