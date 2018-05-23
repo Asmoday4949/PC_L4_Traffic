@@ -40,10 +40,9 @@ public class CarMover extends Thread
     {
 	List<Road> roadsList = circ.getListCirc();
 	for (int i = 1; i <= circ.getListCirc().size() - 1; i++)
-	{
-	    roadsList.get(i).go(roadsList.get(i - 1), this);
-	    
+	{	    
 	    runRoad(roadsList.get(i - 1), roadsList.get(i));
+	    roadsList.get(i).go(roadsList.get(i - 1), this);
 	}
 	listCar.remove(car);
     }

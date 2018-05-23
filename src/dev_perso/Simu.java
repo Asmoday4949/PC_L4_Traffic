@@ -152,9 +152,9 @@ public class Simu
 	banque.connect(kiosque);
 	banque.connect(bureau);
 	
+	ecole.connect(gare);
 	ecole.connect(hotel);
 	ecole.connect(pharmacie);
-	ecole.connect(gare);
 	
 	hotel.connect(fitness);
 	hotel.connect(ecole);

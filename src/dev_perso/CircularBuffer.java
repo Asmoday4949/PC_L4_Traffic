@@ -15,7 +15,7 @@ public class CircularBuffer
 	
 	if(!this.listTraficLights.isEmpty())
 	{
-	    this.current = list.get(0);	    
+	    this.current = list.get(0);  
 	}
 	else
 	{

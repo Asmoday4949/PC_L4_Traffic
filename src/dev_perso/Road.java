@@ -239,15 +239,6 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 
 	    this.listQueuesTrafficLight.get(indexRoad).remove(mover);
 
-	    try
-	    {
-		Thread.sleep(500);
-	    }
-	    catch (InterruptedException e)
-	    {
-		e.printStackTrace();
-	    }
-
 	    lock.unlock();
 	}
     }
