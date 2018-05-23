@@ -5,6 +5,11 @@ package dev_perso;
 
 import java.util.List;
 
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description Mover of a car
+ */
 public class CarMover extends Thread
 {
 
@@ -24,9 +29,8 @@ public class CarMover extends Thread
      * @param _sleep
      *            part of the speed of the car (time)
      */
-    public CarMover(MovableMap _movableMap, PathRoad _circ, Car _car, List<Car> _listCar, int _step)
+    public CarMover(PathRoad _circ, Car _car, List<Car> _listCar, int _step)
     {
-	movableMap = _movableMap;
 	circ = _circ;
 	car = _car;
 	listCar = _listCar;
@@ -81,7 +85,6 @@ public class CarMover extends Thread
 	}
     }
 
-    private MovableMap movableMap;
     private PathRoad circ;
     private Car car;
     private List<Car> listCar;

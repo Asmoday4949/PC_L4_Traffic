@@ -1,16 +1,20 @@
 package dev_perso;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description management of all the traffic light (starting threads)
+ */
 public class TraficLightManager
 {
 
     /**
-     * An simple example of a trafic light manager
+     * start the thread for every road to manage the traffic light
      * 
      * @param roadList
      */
