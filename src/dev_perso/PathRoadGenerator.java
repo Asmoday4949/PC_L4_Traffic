@@ -70,6 +70,10 @@ public class PathRoadGenerator
 	return rand.nextInt(max-min)+min;
     }
 
+    /**
+     * Generate a random color
+     * @return	Random color
+     */
     public static Color generateRandomColor()
     {
 	Random rand = new Random();
