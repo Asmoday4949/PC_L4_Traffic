@@ -227,10 +227,6 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 		try
 		{
 		    this.isGreen.await();
-		    
-		    System.out.println(
-			    "isRed " + (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()));
-		    System.out.println("isNotFirst " + (queue.element() != mover));
 		}
 		catch (InterruptedException e)
 		{
