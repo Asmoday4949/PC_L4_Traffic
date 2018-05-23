@@ -1,7 +1,7 @@
 /**
  * @author Lucas Bulloni, Malik Fleury
  * @date 23.05.2017
- * @description Entry point of the program
+ * @description Entry point of the program. Create the simulator.
  */
 
 package dev_perso;
