@@ -44,7 +44,7 @@ public class Simu
 	// Exemple d'utilisation
 	// Moving car CYAN
 	Car car1 = new Car(Color.CYAN);
-	List<Road> listCirc1 = PathRoadGenerator.generate(50, roadList);
+	List<Road> listCirc1 = PathRoadGenerator.generatePath(50, roadList);
 	PathRoad circ1 = new PathRoad(listCirc1);
 	movableMap.runCar(circ1, car1);
 

@@ -265,6 +265,16 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
     {
 	return listConnectedRoad.iterator();
     }
+    
+    public Road getConnectedRoad(int index)
+    {
+	return listConnectedRoad.get(index);
+    }
+    
+    public int getNumberOfConnectedRoads()
+    {
+	return this.listConnectedRoad.size();
+    }
 
     private CircularBuffer circularBuffer;
     private List<ConcurrentLinkedQueue<CarMover>> listQueuesTrafficLight;
