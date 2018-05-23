@@ -1,3 +1,9 @@
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description Entry point of the program
+ */
+
 package dev_perso;
 
 import java.awt.Color;
