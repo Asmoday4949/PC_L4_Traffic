@@ -1,3 +1,9 @@
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description Represent a trafic light for T and cross roads.
+ */
+
 package dev_perso;
 
 import java.awt.Color;
@@ -6,7 +12,6 @@ import java.awt.Graphics;
 
 public class TraficLight
 {
-
     public enum State
     {
 	OFF, ON
@@ -35,7 +40,7 @@ public class TraficLight
     /**
      * Draw a TraficLight
      * 
-     * @param g
+     * @param g	Graphic context
      */
     public void traficLightDraw(Graphics g)
     {
@@ -91,6 +96,9 @@ public class TraficLight
 	}
     }
 
+    /**
+     * Switch light from on to off or off to on
+     */
     public void switchLight()
     {
 	if (state == State.ON)
@@ -99,18 +107,26 @@ public class TraficLight
 	    setState(State.ON);
     }
 
+    /**
+     * Get the current state of the trafic light
+     * @return State of the trafic light (ON, OFF)
+     */
     public State getState()
     {
 	return state;
     }
 
+    /**
+     * Set the state of the traficlight
+     * @param _state	State (ON, OFF)
+     */
     public void setState(State _state)
     {
 	state = _state;
     }
 
-    private State state;
-    private int dim;
-    private Position position;
+    private State state;		// State of the traficlight
+    private int dim;			// Dimension of the road
+    private Position position;		// Position of the road
 
 }

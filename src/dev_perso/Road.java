@@ -249,7 +249,7 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	lock.lock();
 	try
 	{
-	    this.isGreen.signal();
+	    this.isGreen.signalAll();
 	}
 	finally
 	{

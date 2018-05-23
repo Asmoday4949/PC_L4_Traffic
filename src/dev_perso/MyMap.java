@@ -1,3 +1,9 @@
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description Panel of the map (grid of roads).
+ */
+
 package dev_perso;
 
 import java.awt.GridLayout;
