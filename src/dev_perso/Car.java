@@ -1,7 +1,11 @@
 package dev_perso;
 
 import java.awt.Color;
-
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description graphical representation of the car
+ */
 public class Car
 {
 
@@ -17,23 +21,37 @@ public class Car
 	x = 0;
 	y = 0;
     }
-
+    
+    /**
+     * set the position x y of the car
+     * @param _x
+     * @param _y
+     */
     public void setPosition(int _x, int _y)
     {
 	x = _x;
 	y = _y;
     }
-
+    
+    /**
+     * @return x position
+     */
     public int getX()
     {
 	return x;
     }
-
+    
+    /**
+     * @return y position
+     */
     public int getY()
     {
 	return y;
     }
-
+    
+    /**
+     * @return color of the car
+     */
     public Color getColor()
     {
 	return color;

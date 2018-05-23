@@ -16,11 +16,20 @@ import javax.swing.JPanel;
 
 import dev_perso.TraficLight.State;
 
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description Road intersection
+ */
+
 public class Road extends JPanel implements Runnable, Iterable<Road>
 {
 
     private static final long serialVersionUID = 1L;
-
+    
+    /**
+     * type of intersection
+     */
     public enum RoadType
     {
 	none, line_hori, line_vert, turn_left_top, turn_left_down, turn_right_down, turn_right_top, t_left, t_top, t_right, t_down, cross
@@ -97,7 +106,10 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	    this.listQueuesTrafficLight.add(new ConcurrentLinkedQueue<CarMover>());
 	}
     }
-
+    
+    /**
+     * paint the road
+     */
     public void paintComponent(Graphics g)
     {
 	super.paintComponent(g); // paint parent's background
@@ -165,47 +177,67 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 	g.drawString(nom, dim / 2 + 5, dim / 2 + 10);
     }
-
+    
+    /**
+     * connect a road to this road
+     * @param road to connect
+     */
     public void connect(Road road)
     {
 	this.listConnectedRoad.add(road);
     }
 
+    /**
+     * @return x position of the center
+     */
     public int getPosCentX()
     {
 	return posX * dim + dim / 2;
     }
-
+    
+    /**
+     * @return get the y position  of the center
+     */
     public int getPosCentY()
     {
 	return posY * dim + dim / 2;
     }
-
+    
+    /**
+     * @return name of the road
+     */
     public String getNom()
     {
 	return nom;
     }
-
-    public void setType(RoadType _type)
-    {
-	type = _type;
-	repaint();
-    }
-
+    
+    /**
+     * @return type of the road
+     */
     public RoadType getType()
     {
 	return type;
     }
 
+    /**
+     * if the road has a traffic light
+     * @return
+     */
     public boolean hasTraficLight()
     {
 	return circularBuffer.size() > 0;
     }
-
+    
+    /**
+     * go through the road
+     * @param from road where coming from
+     * @param mover car representation
+     */
     public void go(Road from, CarMover mover)
     {
 	int indexRoad = this.listConnectedRoad.indexOf(from);
-
+	
+	// if the road doesn't exist, return
 	if (indexRoad == -1)
 	{
 	    return;
@@ -216,14 +248,14 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	    this.lock.lock();
 
 	    ConcurrentLinkedQueue<CarMover> queue = this.listQueuesTrafficLight.get(indexRoad);
-
+	    
+	    // get in the queue
 	    queue.add(mover);
-
+	    
+	    //if the light is red or not the first, wait
 	    while (this.circularBuffer.getTraficLight(indexRoad) != this.circularBuffer.getCurrent()
 		    || queue.element() != mover)
 	    {
-		 
-		
 		try
 		{
 		    this.isGreen.await();
@@ -233,19 +265,26 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 		    e.printStackTrace();
 		}
 	    }
-
+	    
+	    //remove the waiting queue
 	    this.listQueuesTrafficLight.get(indexRoad).remove(mover);
-	    this.isGreen.signal();
+	    //signal for the next in the queue
+	    this.isGreen.signalAll();
 
 	    lock.unlock();
 	}
     }
-
+    
+    /**
+     * change the traffic light
+     */
     @Override
     public void run()
     {
+	//get next green
 	circularBuffer.setNextGreen();
-
+	
+	//notify people that the green light has changed
 	lock.lock();
 	try
 	{
@@ -257,18 +296,30 @@ public class Road extends JPanel implements Runnable, Iterable<Road>
 	}
 	this.repaint();
     }
-
+    
+    /**
+     * iterator of the connected road
+     */
     @Override
     public Iterator<Road> iterator()
     {
 	return listConnectedRoad.iterator();
     }
-
+    
+    /**
+     * get the connected road at index
+     * @param index wanted
+     * @return connected road
+     */
     public Road getConnectedRoad(int index)
     {
 	return listConnectedRoad.get(index);
     }
-
+    
+    /**
+     * size of the list of connected road
+     * @return number of road connected
+     */
     public int getNumberOfConnectedRoads()
     {
 	return this.listConnectedRoad.size();

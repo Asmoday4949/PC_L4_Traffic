@@ -8,11 +8,8 @@ package dev_perso;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import dev_perso.Road.RoadType;
 
 public class PathRoadGenerator
 {

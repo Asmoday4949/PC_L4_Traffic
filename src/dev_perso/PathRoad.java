@@ -2,6 +2,11 @@ package dev_perso;
 
 import java.util.List;
 
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description representation of a list of road that represent a path
+ */
 public class PathRoad
 {
 
@@ -14,7 +19,10 @@ public class PathRoad
     {
 	listCirc = _listCirc;
     }
-
+    
+    /**
+     * @return list of road
+     */
     public List<Road> getListCirc()
     {
 	return listCirc;

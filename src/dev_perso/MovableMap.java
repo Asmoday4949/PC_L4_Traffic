@@ -11,6 +11,11 @@ import java.util.concurrent.Executors;
 
 import javax.swing.JPanel;
 
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description drawing of the map
+ */
 public class MovableMap extends JPanel
 {
 
@@ -32,7 +37,10 @@ public class MovableMap extends JPanel
 
 	this.createTimer();
     }
-
+    
+    /**
+     * create a general timer for the map to be drawn every DRAWING_DELTA seconds
+     */
     private void createTimer()
     {
 	this.drawingTimer = new Timer();
@@ -65,7 +73,7 @@ public class MovableMap extends JPanel
 	Road init = circ.getListCirc().get(0);
 	car.setPosition(init.getPosCentX(), init.getPosCentY());
 	listCar.add(car);
-	executor.execute(new CarMover(this, circ, car, listCar, 20));
+	executor.execute(new CarMover(circ, car, listCar, 20));
     }
 
     /**
@@ -102,7 +110,10 @@ public class MovableMap extends JPanel
     {
 	listCar.remove(car);
     }
-
+    
+    /**
+     * paint the component
+     */
     public void paintComponent(Graphics g)
     {
 	super.paintComponent(g);
