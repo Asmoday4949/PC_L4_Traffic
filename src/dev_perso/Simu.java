@@ -1,3 +1,9 @@
+/**
+ * @author Lucas Bulloni, Malik Fleury
+ * @date 23.05.2017
+ * @description Entry point of the program. Create the simulator.
+ */
+
 package dev_perso;
 
 import java.awt.Color;
@@ -37,12 +43,12 @@ public class Simu
 
 	// Create the map where the Car move
 	MovableMap movableMap = new MovableMap(map);
-
-	// ---------------------------
-	// Exemple d'utilisation feu on/off
+	
+	// Add the map to the main panel
 	pan.add(map);
 
 	// Button for adding a new car in the scene
+	// with random color and a random path (minimum of 5 waypoints)
 	JButton btnAddCar = new JButton("Add car");
 	btnAddCar.addActionListener(new ActionListener()
 	{
@@ -50,11 +56,12 @@ public class Simu
 	    @Override
 	    public void actionPerformed(ActionEvent arg0)
 	    {
-		Car car4 = new Car(Color.ORANGE);
+		Color color = PathRoadGenerator.generateRandomColor();
+		Car car = new Car(color);
 		int waypointsNb = PathRoadGenerator.generateNumberOfWayPoints(maxWayPoint);
 		List<Road> path = PathRoadGenerator.generatePath(waypointsNb, roadList);
 		PathRoad circ3 = new PathRoad(path);
-		movableMap.runCar(circ3, car4);
+		movableMap.runCar(circ3, car);
 	    }
 	});
 	pan.add(btnAddCar);
@@ -148,6 +155,7 @@ public class Simu
 	Road fleuriste = new Road(RoadType.turn_left_top, posX, posY, size, "Fleuriste");
 	roadList.add(fleuriste);
 	
+	// Connect each road with its neighbors
 	gare.connect(hopital);
 	gare.connect(ecole);
 	
