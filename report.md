@@ -48,15 +48,14 @@ this.drawingTimer.scheduleAtFixedRate(task, 0, DRAWING_DELTA);
 
 ### Synchronisation des feux de circulation
 
-Les routes comportent toute un thread. Ce thread va s'occuper de réveiller tous les threads des voitures (CarMover) qui sont bloqués sur la condition du feu dans la direction de venue.
-Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" est lancée par le thread qui s'occupe de la gestion de feux des routes ainsi que la gestion de (thread lancé toutes les 3 secondes). Tandis que la méthode "go", elle est executée par un des threads des voitures (CarMover).
+CircularBuffer permet de modifier les feux de signalisation. Toutes les 3 secondes, un seul feu est au vert pour chaque intersection.
 
-
+Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" s'occupe d'indiquer à tous les véhicules (condition, signalAll) que les feux d'une routes ont changé (changement de couleur des feux toutes les 3 secondes par un nouveau thread, à l'aide d'un "executor scheduleAtFixedRate"). Tandis que la méthode "go", elle est executée par un des thread d'une des voitures (CarMover) et elle s'occupe de savoir si le véhicule peut continuer son chemin car le feu est vert ou alors entrer dans la file d'attente de l'intersection car le feu est rouge. Lorsque la voiture est en file, le thread qui représente cette voiture est mis en pause et sera réveillé 3 secondes plus tard pour savoir si elle peut denouveau continuer son chemin ou non.
 
 ### Synchronisation des voitures dans une intersection
 
 ### Parcours des voitures sur la map et augmentation du nombre de thread maximum
 
-Concernant l'implémentation aléatoire des chemins, nous avons utilisé les routes connectées afin de savoir depuis quelle route arrive le véhicule et de pouvoir déterminer la suite de son chemin. De plus, le choix du chemin se fait aléatoirement si on se trouve dans le cas d'une intersection (T ou +).
+Concernant l'implémentation aléatoire des chemins, nous avons utilisé les routes connectées afin de savoir depuis quelle route arrive le véhicule et de pouvoir déterminer la suite de son chemin. De plus, le choix du chemin se fait aléatoirement si on se trouve dans le cas d'une intersection (T ou +). Le chemin est généré avant le lancement du véhicules. Par conséquent, les véhicules connaissent déjà le trajet complet avant de commencer leur parcours.
 
 ## Conclusion
