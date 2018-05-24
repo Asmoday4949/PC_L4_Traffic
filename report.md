@@ -49,13 +49,17 @@ this.drawingTimer.scheduleAtFixedRate(task, 0, DRAWING_DELTA);
 ### Synchronisation des feux de circulation
 
 
-Il faut bien faire attention aux méthodes `run` et `go` de notre classe `Road`. En effet, la méthode `run` s'occupe d'indiquer à tous les véhicules (condition, signalAll) que les feux d'une routes ont changé (changement de couleur des feux toutes les 3 secondes par un nouveau thread, à l'aide d'un `executor scheduleAtFixedRate`). Tandis que la méthode `go`, elle est executée par un des thread d'une des voitures (CarMover) et elle s'occupe de savoir si le véhicule peut continuer son chemin car le feu est vert ou alors entrer dans la file d'attente de l'intersection car le feu est rouge. Lorsque la voiture est en file, le thread qui représente cette voiture est mis en pause et sera réveillé 3 secondes plus tard pour savoir si elle peut denouveau continuer son chemin ou non.
+Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" s'occupe d'indiquer à tous les véhicules (condition, signalAll) que les feux d'une routes ont changé (changement de couleur des feux toutes les 3 secondes par un nouveau thread, à l'aide d'un "executor scheduleAtFixedRate"). Tandis que la méthode "go", elle est executée par un des thread d'une des voitures (CarMover) et elle s'occupe de savoir si le véhicule peut continuer son chemin car le feu est vert ou alors entrer dans la file d'attente de l'intersection car le feu est rouge. Lorsque la voiture est en file, le thread qui représente cette voiture est mis en pause et sera réveillé 3 secondes plus tard pour savoir si elle peut denouveau continuer son chemin ou non.
 
-La classe `CircularBuffer` a pour but de changer la couleur du prochain feu dans une intersection. Le changement de feu se fait dans le sens horaire d'une montre. Toutes les 3 secondes, un seul feu est mis au vert pour chaque intersection.
+La classe "CircularBuffer" a pour but de changer la couleur du prochain feu dans une intersection. Le changement de feu se fait dans le sens horaire d'une montre. Toutes les 3 secondes, un seul feu est mis au vert pour chaque intersection.
 
 ### Synchronisation des voitures dans une intersection
 
+<<<<<<< HEAD
+Afin de synchroniser l'arrivée des voitures correctement à une intersection, nous avons fait une liste de route connectées à l'intersection. Ça permet également de ne pas faire de synchronisation lorsqu'il y a moins de 3 routes connectées, car il n'y aura pas de feu rouge. Cette liste permetégalement de savoir quel feu de signalisation est lié à quelle route. L'index de la liste des feux est le même que l'index de la liste des routes connectées.
+=======
 Afin de synchroniser l'arrivée des voitures correctement à une in tersection, nous avons fait une liste de route connectées à l'intersection. Ça permet également de ne pas faire de synchronisation lorsqu'il y a moins de 3 routes connectées, car il n'y aura pas de feu rouge. Cette liste permet également de savoir quel feu de signalisation est lié à quelle route. L'index de la liste des feux est le même que l'index de la liste des routes connectées.
+>>>>>>> fddb37958782bab17321a1f30a8406fba213e38f
 
 Ensuite quand une voiture arrive à l'intersection, elle va vérifier que le soit vert. S'il est vert la voiture va passer et s'il est rouge, elle va entrée dans une file d'attente propre à chaque feu. Les intersections ont donc une file d'attente par feu, comme ce le serait en réalité.
 
@@ -74,6 +78,18 @@ Chaque `CarMover` est un Thread et représente une voiture. La synchronisation m
 Concernant l'implémentation aléatoire des chemins, nous avons utilisé les routes connectées afin de savoir depuis quelle route arrive le véhicule et de pouvoir déterminer la suite de son chemin. De plus, le choix du chemin se fait aléatoirement si on se trouve dans le cas d'une intersection (T ou +). Le chemin est généré avant le lancement du véhicules. Par conséquent, les véhicules connaissent déjà le trajet complet avant de commencer leur parcours.
 
 ## Tests
+
+### Feux
+
+Pour les feux nous avons testé que les feux changes correctement en vérifiant à la fois l'interface graphique et en faisant des `System.out.println()` dans la console.
+
+Nous avons également fait attention que les feux étaient bien lié à la bonne route en exécutant le programme et en observant que les voitures s'arrêtaient bien au bon feu et repétant bien quand leur feu était vert.
+
+### Voiture à une intersection
+
+
+### Chemins aléatoire
+
 
 Le test du générateur de chemins aléatoire à tout simplement été fait visuellement. En effet, les seuls gros problèmes qui peuvent subvenir sont les deux cas suivants :
 - téléportation d'une voiture sur une route
