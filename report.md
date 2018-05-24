@@ -48,7 +48,7 @@ this.drawingTimer.scheduleAtFixedRate(task, 0, DRAWING_DELTA);
 
 ### Synchronisation des feux de circulation
 
-CircularBuffer permet de modifier les feux de signalisation. Toutes les 3 secondes, un seul feu est au vert pour chaque intersection.
+La classe "CircularBuffer" a pour but de changer la couleur du prochain feu dans une intersection. Le changement de feu se fait dans le sens horaire d'une montre. Toutes les 3 secondes, un seul feu est mis au vert pour chaque intersection.
 
 Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" s'occupe d'indiquer à tous les véhicules (condition, signalAll) que les feux d'une routes ont changé (changement de couleur des feux toutes les 3 secondes par un nouveau thread, à l'aide d'un "executor scheduleAtFixedRate"). Tandis que la méthode "go", elle est executée par un des thread d'une des voitures (CarMover) et elle s'occupe de savoir si le véhicule peut continuer son chemin car le feu est vert ou alors entrer dans la file d'attente de l'intersection car le feu est rouge. Lorsque la voiture est en file, le thread qui représente cette voiture est mis en pause et sera réveillé 3 secondes plus tard pour savoir si elle peut denouveau continuer son chemin ou non.
 
