@@ -51,12 +51,29 @@ this.drawingTimer.scheduleAtFixedRate(task, 0, DRAWING_DELTA);
 Les routes comportent toute un thread. Ce thread va s'occuper de réveiller tous les threads des voitures (CarMover) qui sont bloqués sur la condition du feu dans la direction de venue.
 Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" est lancée par le thread qui s'occupe de la gestion de feux des routes ainsi que la gestion de (thread lancé toutes les 3 secondes). Tandis que la méthode "go", elle est executée par un des threads des voitures (CarMover).
 
-
-
 ### Synchronisation des voitures dans une intersection
+
+Afin de synchroniser l'arrivée des voitures correctement à une intersection, nous avons fait une liste de route connectées à l'intersection. Ça permet également de ne pas faire de synchronisation lorsqu'il y a moins de 3 routes connectées, car il n'y aura pas de feu rouge. Cette liste permetégalement de savoir quel feu de signalisation est lié à quelle route. L'index de la liste des feux est le même que l'index de la liste des routes connectées.
+
+Ensuite quand une voiture arrive à l'intersection, elle va vérifier que le soit vert. S'il est vert la voiture va passer et s'il est rouge, elle va entrée dans une file d'attente propre à chaque feu. Les intersections ont donc une file d'attente par feu, comme ce le serait en réalité.
+
+
+Au niveau de la programmation, lorsqu'une voiture arrive à une intersection avec la fonction `go` de `Road`, il faut qu'elle passe en paramètre la route d'ou elle provient et elle même afin d'entrer dans la file d'attente.
+
+```java
+public void go(Road from, CarMover mover)
+```
+
+Chaque `CarMover` est un Thread et représente une voiture. La synchronisation multithread est fait avec un `ReentrantLock` et une `Condition`. Lorsque le feu est rouge les `CarMover` vont attendre avec un `Condition.wait` et seront signalé lorsque le feu change d'état dans l'objet `CircularBuffer` de chaque route
+
+
+
+
 
 ### Parcours des voitures sur la map et augmentation du nombre de thread maximum
 
 Concernant l'implémentation aléatoire des chemins, nous avons utilisé les routes connectées afin de savoir depuis quelle route arrive le véhicule et de pouvoir déterminer la suite de son chemin. De plus, le choix du chemin se fait aléatoirement si on se trouve dans le cas d'une intersection (T ou +).
+
+## Tests
 
 ## Conclusion
