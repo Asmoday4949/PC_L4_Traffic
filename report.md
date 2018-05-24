@@ -94,7 +94,7 @@ Nous avons également fait attention que les feux étaient bien lié à la bonne
 Le test du générateur de chemins aléatoire à tout simplement été fait visuellement. En effet, les seuls gros problèmes qui peuvent subvenir sont les deux cas suivants :
 - téléportation d'une voiture sur une route
 - demi-tour sur une route ou une intersection
-Il est donc très facile de voir si notre véhicules suit bien la trajectoire attendue ou si des choses bizarres se passent, tels que les deux cas cités plus haut.
+Il est donc très facile de voir si notre véhicules suit bien la trajectoire attendue ou si des choses bizarres se passent, tels que les deux cas cités ci-dessus.
 
 ## Conclusion
 
