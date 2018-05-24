@@ -48,9 +48,10 @@ this.drawingTimer.scheduleAtFixedRate(task, 0, DRAWING_DELTA);
 
 ### Synchronisation des feux de circulation
 
-<<<<<<< HEAD
-Les routes comportent toute un thread. Ce thread va s'occuper de réveiller tous les threads des voitures (CarMover) qui sont bloqués sur la condition du feu dans la direction de venue.
-Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" est lancée par le thread qui s'occupe de la gestion de feux des routes ainsi que la gestion de (thread lancé toutes les 3 secondes). Tandis que la méthode "go", elle est executée par un des threads des voitures (CarMover).
+
+Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" s'occupe d'indiquer à tous les véhicules (condition, signalAll) que les feux d'une routes ont changé (changement de couleur des feux toutes les 3 secondes par un nouveau thread, à l'aide d'un "executor scheduleAtFixedRate"). Tandis que la méthode "go", elle est executée par un des thread d'une des voitures (CarMover) et elle s'occupe de savoir si le véhicule peut continuer son chemin car le feu est vert ou alors entrer dans la file d'attente de l'intersection car le feu est rouge. Lorsque la voiture est en file, le thread qui représente cette voiture est mis en pause et sera réveillé 3 secondes plus tard pour savoir si elle peut denouveau continuer son chemin ou non.
+
+La classe "CircularBuffer" a pour but de changer la couleur du prochain feu dans une intersection. Le changement de feu se fait dans le sens horaire d'une montre. Toutes les 3 secondes, un seul feu est mis au vert pour chaque intersection.
 
 ### Synchronisation des voitures dans une intersection
 
@@ -66,13 +67,6 @@ public void go(Road from, CarMover mover)
 ```
 
 Chaque `CarMover` est un Thread et représente une voiture. La synchronisation multithread est fait avec un `ReentrantLock` et une `Condition`. Lorsque le feu est rouge les `CarMover` vont attendre avec un `Condition.wait` et seront signalé lorsque le feu change d'état dans l'objet `CircularBuffer` de chaque route
-
-
-=======
-La classe "CircularBuffer" a pour but de changer la couleur du prochain feu dans une intersection. Le changement de feu se fait dans le sens horaire d'une montre. Toutes les 3 secondes, un seul feu est mis au vert pour chaque intersection.
->>>>>>> def2f70a1e1115434e9b013774271a6b25ea46a8
-
-Il faut bien faire attention aux méthodes "run" et "go" de notre classe "Road". En effet, la méthode "run" s'occupe d'indiquer à tous les véhicules (condition, signalAll) que les feux d'une routes ont changé (changement de couleur des feux toutes les 3 secondes par un nouveau thread, à l'aide d'un "executor scheduleAtFixedRate"). Tandis que la méthode "go", elle est executée par un des thread d'une des voitures (CarMover) et elle s'occupe de savoir si le véhicule peut continuer son chemin car le feu est vert ou alors entrer dans la file d'attente de l'intersection car le feu est rouge. Lorsque la voiture est en file, le thread qui représente cette voiture est mis en pause et sera réveillé 3 secondes plus tard pour savoir si elle peut denouveau continuer son chemin ou non.
 
 
 ### Parcours des voitures sur la map et augmentation du nombre de thread maximum
