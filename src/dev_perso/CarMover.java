@@ -1,6 +1,3 @@
-/**
- * 
- */
 package dev_perso;
 
 import java.util.List;

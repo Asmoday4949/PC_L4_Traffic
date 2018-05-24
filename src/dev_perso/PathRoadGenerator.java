@@ -29,6 +29,7 @@ public class PathRoadGenerator
 	int lastRoadIndex = rand.nextInt(currentRoad.getNumberOfConnectedRoads());
 	Road lastRoad = roadsList.get(lastRoadIndex);
 	
+	// 
 	for (int count = 0; count < waypointsNb; count++)
 	{
 	    Road nextRoad = null;
@@ -36,6 +37,7 @@ public class PathRoadGenerator
 	    
 	    pathToFollow.add(currentRoad);
 	    
+	    // Search the next road (forward)
 	    do
 	    {
 		nextRoadIndex = rand.nextInt(currentRoad.getNumberOfConnectedRoads());
