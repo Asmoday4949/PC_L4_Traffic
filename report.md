@@ -108,3 +108,5 @@ Il est donc très facile de voir si notre véhicules suit bien la trajectoire at
 Lorsqu'on a plus de 20 voitures sur la carte, les voitures arrêtent de fonctionner correctement car la pool de Thread est uniquement prévu pour 20 thread maximum.
 
 ## Conclusion
+
+Pour ce laboratoire, nous avons utilisé les outils de concurrence que nous offre Java (les `conditions` ainsi qu'un `executor`). Le programme est fonctionnel; les voitures respectes les différents feux et tout cela sans que le programme entre en interblocage dû à des problèmes de concurrence. Il faut également noter que les véhicules prennent des chemins totalement aléatoires (max de 20 voitures). Par conséquent, nous pensons que le travail réalisé respecte les exigences demandées.
