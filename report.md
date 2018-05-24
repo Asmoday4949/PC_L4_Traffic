@@ -81,3 +81,5 @@ Le test du générateur de chemins aléatoire à tout simplement été fait visu
 Il est donc très facile de voir si notre véhicules suit bien la trajectoire attendue ou si des choses bizarres se passent, tels que les deux cas cités plus haut.
 
 ## Conclusion
+
+Pour ce laboratoire, nous avons utilisé les outils de concurrence que nous offre Java (les `conditions` ainsi qu'un `executor`). Le programme est fonctionnel; les voitures respectes les différents feux et tout cela sans que le programme entre en interblocage dû à des problèmes de concurrence. Il faut également noter que les véhicules prennent des chemins totalement aléatoires (max de 20 voitures). Par conséquent, nous pensons que le travail réalisé respecte les exigences demandées.
