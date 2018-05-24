@@ -98,14 +98,10 @@ Et aucun de ces points pose problème et on été testé avec succès.
 
 Le test du générateur de chemins aléatoire à tout simplement été fait visuellement. En effet, les seuls gros problèmes qui peuvent subvenir sont les deux cas suivants :
 
-- téléportation d'une voiture sur une route
-- demi-tour sur une route ou une intersection
-<<<<<<< HEAD
-Il est donc très facile de voir si notre véhicules suit bien la trajectoire attendue ou si des choses bizarres se passent, tels que les deux cas cités ci-dessus.
-=======
+- téléportation d'une voiture sur une route,
+- demi-tour sur une route ou une intersection.
 
-Il est donc très facile de voir si notre véhicules suit bien la trajectoire attendue ou si des choses bizarres se passent, tels que les deux cas cités plus haut.
->>>>>>> 1a62fba90a63499c4adb6b486bcdd2070d64ed30
+Il est donc très facile de voir si notre véhicules suit bien la trajectoire attendue ou si des choses bizarres se passent, telles que les deux cas cités ci-dessus.
 
 ## Bugs connus
 
